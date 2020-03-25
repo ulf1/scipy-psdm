@@ -12,7 +12,7 @@ pip install scipy-psdm
 
 
 ## Usage
-Lurie-Goldberg Algorithm:
+Lurie-Goldberg Algorithm to transform an ill-conditioned quadratic matrix into a positive semi-definite matrix.
 
 ```
 import scipy_psdm as psdm
@@ -28,6 +28,18 @@ mat = np.array(mat)
 # Convert to a positive semi-definite matrix
 rho = psdm.luriegold(mat)
 print(rho.round(3))
+```
+
+Generate correlated random numbers
+
+```
+import scipy_psdm as psdm
+X, rho = psdm.randcorr(n_obs=100, n_vars=5, random_state=42)
+
+# compare
+import numpy as np
+print(rho.round(3))
+print(np.corrcoef(X, rowvar=False).round(3))
 ```
 
 Check the [examples](https://github.com/ulf1/scipy-psdm/tree/master/examples) folder for notebooks.

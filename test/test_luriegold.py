@@ -50,7 +50,7 @@ def test4():
 
 
 def test5():
-    mat = psdm.illmat(n_dim=50, random_state=42)
+    mat = psdm.illmat(n_dim=10, random_state=42)
     rho = psdm.luriegold(mat)
     # test 1
     np.testing.assert_allclose(np.diag(rho), 1.0)

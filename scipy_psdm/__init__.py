@@ -1,2 +1,2 @@
 from .luriegold import luriegold
-from .utils import illmat
+from .utils import illmat, randcorr
