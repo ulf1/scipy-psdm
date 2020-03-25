@@ -4,7 +4,28 @@ import warnings
 
 
 def luriegold(R: np.ndarray,
-              debug: bool = False) -> (np.ndarray, np.ndarray, dict):
+              n_max_post_fit: int = 3) -> (np.ndarray, np.ndarray, dict):
+    # pre-optimization step
+    C = luriegold_fit(R, debug=False)
+
+    # post-optimization step
+    k = 0
+    while k < n_max_post_fit:
+        if np.all(np.diag(C) == 1.0):
+            break
+        C = np.array(luriegold_fit(C, debug=False))
+        k = k + 1
+    # final check
+    if not np.allclose(np.diag(C), 1.0):
+        warnings.warn(
+            "Some diagonals are not 1.0. Try to increase n_max_post_fit")
+
+    # done
+    return C
+
+
+def luriegold_fit(R: np.ndarray,
+                  debug: bool = False) -> (np.ndarray, np.ndarray, dict):
     """Lurie-Goldberg Algorithm to adjust a correlation
     matrix to be semipositive definite
 
@@ -41,7 +62,7 @@ def luriegold(R: np.ndarray,
                       idx: np.ndarray,
                       mat: np.ndarray) -> np.ndarray:
         C, _ = xtocorr(x, idx, mat)
-        return np.diag(C) - 1
+        return np.diag(C) - 1.0
 
     # dimension of the correlation matrix
     d = R.shape[0]
@@ -50,21 +71,19 @@ def luriegold(R: np.ndarray,
     # other arguments
     mat = np.zeros((d, d))  # the lower triangular matrix without values
     idx = np.tril(np.ones((d, d)), k=0) > 0  # boolean matrix
-    # idx = np.tril_indices(d,k=0); #row/col ids (same result)
 
     # start values of the optimization are Ones
     x0 = np.ones(shape=(n, )) / n
 
-    # for each of the k factors, the sum of its d absolute params
-    # values has to be less than 1
+    # the diagonals need to be 1s
     condiag = {'type': 'eq', 'args': (idx, mat), 'fun': nlcon_diagone}
 
     # optimization
     algorithm = 'SLSQP'
-    opt = {'disp': False}
+    opt = {'disp': False, 'maxiter': 1000, 'ftol': 1e-10}
 
     # run the optimization
-    results = scipy.optimize.minimize(
+    res = scipy.optimize.minimize(
         objectivefunc, x0,
         args=(R, idx, mat),
         constraints=[condiag],
@@ -72,17 +91,10 @@ def luriegold(R: np.ndarray,
         options=opt)
 
     # Compute Correlation Matrix
-    C, L = xtocorr(results.x, idx, mat)
-
-    # Adjust diagonals
-    arr_diags = np.diag(C)
-    if np.any(arr_diags != 1.0):
-        warnings.warn(
-            "Some diagonals are not 1.0 and are automatically adjusted.")
-        #C[np.diag_indices(len(arr_diags), ndim=2)] = 1.0
+    C, L = xtocorr(res.x, idx, mat)
 
     # done
     if debug:
-        return C, L, results
+        return C, L, res
     else:
         return C

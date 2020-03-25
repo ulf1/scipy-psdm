@@ -9,8 +9,8 @@ def read(fname):
 setup(name='scipy-psdm',
       version='0.1.0',
       description=(
-          "Lurie-Goldberg Algorithm to adjust a correlation "
-          "matrix to be semipositive definite."),
+          "transform an ill-conditioned quadratic matrix to "
+          "a positive semidefinite matrix"),
       long_description=read('README.md'),
       long_description_content_type='text/markdown',
       url='http://github.com/ulf1/luriegold',

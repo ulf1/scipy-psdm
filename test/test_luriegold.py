@@ -21,3 +21,29 @@ def test2():
     rho = psdm.luriegold(mat)
     rhoT = np.transpose(rho)
     np.testing.assert_allclose(rho, rhoT)
+
+
+def test3():
+    mat = [[1.000, -0.948, 0.099, -0.129],
+           [-0.948, 1.000, -0.591, 0.239],
+           [0.099, -0.591, 1.000, 0.058],
+           [-0.129, 0.239, 0.058, 1.000]]
+    mat = np.array(mat)
+    rho = psdm.luriegold(mat)
+    # try to run cholesky decomposition.
+    # numpy will throw an exception if the matrix is ill-conditioned
+    try:
+        np.linalg.cholesky(rho)
+    except np.linalg.LinAlgError:
+        assert False
+
+
+def test4():
+    mat = [[1.000, -0.948, 0.099, -0.129],
+           [-0.948, 1.000, -0.591, 0.239],
+           [0.099, -0.591, 1.000, 0.058],
+           [-0.129, 0.239, 0.058, 1.000]]
+    mat = np.array(mat)
+    rho = psdm.luriegold(mat)
+    # matrix determinant must be greater than 0
+    assert np.linalg.det(rho) > 0.0
