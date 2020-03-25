@@ -79,7 +79,7 @@ def luriegold(R: np.ndarray,
     if np.any(arr_diags != 1.0):
         warnings.warn(
             "Some diagonals are not 1.0 and are automatically adjusted.")
-        C[np.diag_indices(len(arr_diags), ndim=2)] = 1.0
+        #C[np.diag_indices(len(arr_diags), ndim=2)] = 1.0
 
     # done
     if debug:
