@@ -47,3 +47,20 @@ def test4():
     rho = psdm.luriegold(mat)
     # matrix determinant must be greater than 0
     assert np.linalg.det(rho) > 0.0
+
+
+def test5():
+    mat = psdm.illmat(n_dim=50, random_state=42)
+    rho = psdm.luriegold(mat)
+    # test 1
+    np.testing.assert_allclose(np.diag(rho), 1.0)
+    # test 2
+    rhoT = np.transpose(rho)
+    np.testing.assert_allclose(rho, rhoT)
+    # test 3
+    try:
+        np.linalg.cholesky(rho)
+    except np.linalg.LinAlgError:
+        assert False
+    # test 4
+    assert np.linalg.det(rho) > 0.0

@@ -4,16 +4,16 @@ import warnings
 
 
 def luriegold(R: np.ndarray,
-              n_max_post_fit: int = 3) -> (np.ndarray, np.ndarray, dict):
+              n_max_post_fit: int = 5) -> (np.ndarray, np.ndarray, dict):
     # pre-optimization step
-    C = luriegold_fit(R, debug=False)
+    C = luriegold_fit(R, maxiter=1000, debug=False)
 
     # post-optimization step
     k = 0
     while k < n_max_post_fit:
         if np.all(np.diag(C) == 1.0):
             break
-        C = np.array(luriegold_fit(C, debug=False))
+        C = np.array(luriegold_fit(C, maxiter=200, debug=False))
         k = k + 1
     # final check
     if not np.allclose(np.diag(C), 1.0):
@@ -25,6 +25,7 @@ def luriegold(R: np.ndarray,
 
 
 def luriegold_fit(R: np.ndarray,
+                  maxiter: int = 1000,
                   debug: bool = False) -> (np.ndarray, np.ndarray, dict):
     """Lurie-Goldberg Algorithm to adjust a correlation
     matrix to be semipositive definite
@@ -36,17 +37,10 @@ def luriegold_fit(R: np.ndarray,
     """
 
     # subfunctions
-    def xtotril(x: np.ndarray,
-                idx: np.ndarray,
-                mat: np.ndarray) -> np.ndarray:
-        """Create 'L' lower triangular matrix."""
-        mat[idx] = x
-        return mat
-
     def xtocorr(x: np.ndarray,
                 idx: np.ndarray,
-                mat: np.ndarray) -> (np.ndarray, np.ndarray):
-        L = xtotril(x, idx, mat)
+                L: np.ndarray) -> (np.ndarray, np.ndarray):
+        L[idx] = x  # impute x into 0s matrix
         C = np.dot(L, L.T)
         return C, L
 
@@ -62,15 +56,15 @@ def luriegold_fit(R: np.ndarray,
                       idx: np.ndarray,
                       mat: np.ndarray) -> np.ndarray:
         C, _ = xtocorr(x, idx, mat)
-        return np.diag(C) - 1.0
+        return np.abs(1.0 - np.diag(C))
 
     # dimension of the correlation matrix
     d = R.shape[0]
     n = int((d**2 + d) / 2.)
 
-    # other arguments
-    mat = np.zeros((d, d))  # the lower triangular matrix without values
-    idx = np.tril(np.ones((d, d)), k=0) > 0  # boolean matrix
+    # the lower triangular matrix without values
+    mat = np.zeros((d, d), dtype=np.float64)
+    idx = np.tril(np.ones((d, d)), k=0) > 0
 
     # start values of the optimization are Ones
     x0 = np.ones(shape=(n, )) / n
@@ -80,7 +74,7 @@ def luriegold_fit(R: np.ndarray,
 
     # optimization
     algorithm = 'SLSQP'
-    opt = {'disp': False, 'maxiter': 1000, 'ftol': 1e-10}
+    opt = {'disp': False, 'maxiter': maxiter, 'ftol': 1e-10}
 
     # run the optimization
     res = scipy.optimize.minimize(
