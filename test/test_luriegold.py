@@ -4,20 +4,24 @@ import scipy_psdm as psdm
 
 
 def test_unit_diagonal():
-    mat = [[1.000, -0.948, 0.099, -0.129],
-           [-0.948, 1.000, -0.591, 0.239],
-           [0.099, -0.591, 1.000, 0.058],
-           [-0.129, 0.239, 0.058, 1.000]]
+    mat = [
+        [1.000, -0.948, 0.099, -0.129],
+        [-0.948, 1.000, -0.591, 0.239],
+        [0.099, -0.591, 1.000, 0.058],
+        [-0.129, 0.239, 0.058, 1.000],
+    ]
     mat = np.array(mat)
     rho = psdm.approximate_correlation_matrix(mat)
     np.testing.assert_allclose(np.diag(rho), 1.0)
 
 
 def test_symmetry():
-    mat = [[1.000, -0.948, 0.099, -0.129],
-           [-0.948, 1.000, -0.591, 0.239],
-           [0.099, -0.591, 1.000, 0.058],
-           [-0.129, 0.239, 0.058, 1.000]]
+    mat = [
+        [1.000, -0.948, 0.099, -0.129],
+        [-0.948, 1.000, -0.591, 0.239],
+        [0.099, -0.591, 1.000, 0.058],
+        [-0.129, 0.239, 0.058, 1.000],
+    ]
     mat = np.array(mat)
     rho = psdm.approximate_correlation_matrix(mat)
     rhoT = np.transpose(rho)
@@ -25,10 +29,12 @@ def test_symmetry():
 
 
 def test_cholesky():
-    mat = [[1.000, -0.948, 0.099, -0.129],
-           [-0.948, 1.000, -0.591, 0.239],
-           [0.099, -0.591, 1.000, 0.058],
-           [-0.129, 0.239, 0.058, 1.000]]
+    mat = [
+        [1.000, -0.948, 0.099, -0.129],
+        [-0.948, 1.000, -0.591, 0.239],
+        [0.099, -0.591, 1.000, 0.058],
+        [-0.129, 0.239, 0.058, 1.000],
+    ]
     mat = np.array(mat)
     rho = psdm.approximate_correlation_matrix(mat)
     # try to run cholesky decomposition.
@@ -40,10 +46,12 @@ def test_cholesky():
 
 
 def test_determinant_positive():
-    mat = [[1.000, -0.948, 0.099, -0.129],
-           [-0.948, 1.000, -0.591, 0.239],
-           [0.099, -0.591, 1.000, 0.058],
-           [-0.129, 0.239, 0.058, 1.000]]
+    mat = [
+        [1.000, -0.948, 0.099, -0.129],
+        [-0.948, 1.000, -0.591, 0.239],
+        [0.099, -0.591, 1.000, 0.058],
+        [-0.129, 0.239, 0.058, 1.000],
+    ]
     mat = np.array(mat)
     rho = psdm.approximate_correlation_matrix(mat)
     # matrix determinant must be greater than 0

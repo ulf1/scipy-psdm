@@ -22,8 +22,9 @@ def illmat(n_dim: int, random_state: int = None) -> np.ndarray:
     return np.eye(n_dim) + tmp + tmp.T
 
 
-def randcorr(n_obs: int, n_vars: int, rho: np.ndarray = None,
-             random_state: int = None) -> np.ndarray:
+def randcorr(
+    n_obs: int, n_vars: int, rho: np.ndarray = None, random_state: int = None
+) -> np.ndarray:
     """Generate correlated random numbers"""
     if random_state:
         np.random.seed(random_state)
