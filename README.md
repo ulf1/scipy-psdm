@@ -6,15 +6,14 @@ Transform an ill-conditioned quadratic matrix into a positive semi-definite matr
 ## Installation
 The `scipy-psdm` [git repo](http://github.com/ulf1/scipy-psdm) is available as [PyPi package](https://pypi.org/project/scipy-psdm)
 
-```
+```bash
 pip install scipy-psdm
 ```
-
 
 ## Usage
 Lurie-Goldberg Algorithm to transform an ill-conditioned quadratic matrix into a positive semi-definite matrix.
 
-```
+```python
 import scipy_psdm as psdm
 import numpy as np
 
@@ -32,7 +31,7 @@ print(rho.round(3))
 
 Generate correlated random numbers
 
-```
+```python
 import scipy_psdm as psdm
 X, rho = psdm.randcorr(n_obs=100, n_vars=5, random_state=42)
 
@@ -48,7 +47,7 @@ Check the [examples](https://github.com/ulf1/scipy-psdm/tree/master/examples) fo
 ## Commands
 Install a virtual environment
 
-```
+```bash
 python3.6 -m venv .venv
 source .venv/bin/activate
 pip3 install --upgrade pip setuptools wheel twine
@@ -62,12 +61,12 @@ Python commands
 * Start virtual env: `source .venv/bin/activate`
 * Jupyter for the examples: `jupyter lab`
 * Check syntax: `flake8 --ignore=F401 --exclude=$(grep -v '^#' .gitignore | xargs | sed -e 's/ /,/g')`
-* Run Unit Tests: `pytest`
+* Run Unit Tests: `pytest -v`
 * Upload to PyPi with twine: `python setup.py sdist && twine upload -r pypi dist/*`
 
 Clean up 
 
-```
+```bash
 find . -type f -name "*.pyc" | xargs rm
 find . -type d -name "__pycache__" | xargs rm -r
 rm -r .pytest_cache
