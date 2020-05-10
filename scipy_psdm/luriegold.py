@@ -26,10 +26,25 @@ def luriegold(R: np.ndarray,
 
 
 def luriegold_fit(R: np.ndarray,
-                  maxiter: int = 1000,
-                  debug: bool = False) -> (np.ndarray, np.ndarray, dict):
-    """Lurie-Goldberg Algorithm to adjust a correlation
-    matrix to be semipositive definite
+                  maxiter: int = 1000) -> (np.ndarray, np.ndarray, dict):
+    """Adjust an ill-conditioned correlation matrix to be semipositive definite.
+
+    Parameters
+    ----------
+    R: np.ndarray
+
+    maxiter: int, 
+        Maximum number of optimization iterations
+
+    Returns
+    -------
+    C: np.ndarray
+        Closest well-conditioned matrix. 
+
+    Notes
+    -----
+    Based on the Lurie-Goldberg Algorithm to adjust a correlation
+    matrix to be semipositive definite. 
 
     Philip M. Lurie and Matthew S. Goldberg (1998), An Approximate Method
        for Sampling Correlated Random Variables from Partially-Specified
@@ -88,8 +103,4 @@ def luriegold_fit(R: np.ndarray,
     # Compute Correlation Matrix
     C, L = xtocorr(res.x, idx, mat)
 
-    # done
-    if debug:
-        return C, L, res
-    else:
-        return C
+    return C
