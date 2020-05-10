@@ -3,7 +3,7 @@ import numpy as np
 import scipy_psdm as psdm
 
 
-def test1():
+def test_unit_diagonal():
     mat = [[1.000, -0.948, 0.099, -0.129],
            [-0.948, 1.000, -0.591, 0.239],
            [0.099, -0.591, 1.000, 0.058],
@@ -13,7 +13,7 @@ def test1():
     np.testing.assert_allclose(np.diag(rho), 1.0)
 
 
-def test2():
+def test_symmetry():
     mat = [[1.000, -0.948, 0.099, -0.129],
            [-0.948, 1.000, -0.591, 0.239],
            [0.099, -0.591, 1.000, 0.058],
@@ -24,7 +24,7 @@ def test2():
     np.testing.assert_allclose(rho, rhoT)
 
 
-def test3():
+def test_cholesky():
     mat = [[1.000, -0.948, 0.099, -0.129],
            [-0.948, 1.000, -0.591, 0.239],
            [0.099, -0.591, 1.000, 0.058],
@@ -39,7 +39,7 @@ def test3():
         assert False
 
 
-def test4():
+def test_determinant_positive():
     mat = [[1.000, -0.948, 0.099, -0.129],
            [-0.948, 1.000, -0.591, 0.239],
            [0.099, -0.591, 1.000, 0.058],
@@ -50,7 +50,7 @@ def test4():
     assert np.linalg.det(rho) > 0.0
 
 
-def test5():
+def test_integration():
     mat = psdm.illmat(n_dim=10, random_state=42)
     rho = psdm.luriegold(mat)
     # test 1
