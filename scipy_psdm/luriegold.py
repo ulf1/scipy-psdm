@@ -1,6 +1,7 @@
+import warnings
+
 import numpy as np
 import scipy.optimize
-import warnings
 
 
 def luriegold(R: np.ndarray,

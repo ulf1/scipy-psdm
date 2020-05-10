@@ -1,5 +1,6 @@
-import scipy_psdm as psdm
 import numpy as np
+
+import scipy_psdm as psdm
 
 
 def test1():
