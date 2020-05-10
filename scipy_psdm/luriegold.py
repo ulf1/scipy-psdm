@@ -4,21 +4,39 @@ import numpy as np
 import scipy.optimize
 
 
-def luriegold(R: np.ndarray,
+def approximate_correlation_matrix(C_initial: np.ndarray,
               n_max_post_fit: int = 5) -> (np.ndarray, np.ndarray, dict):
+    """Generate a valid correlation matrix from an initial matrix.
+
+    Parameters
+    ----------
+    C_initial: np.array
+
+    n_max_post_fit: int
+
+    Returns
+    -------
+    np.array
+
+    Raises
+    ------
+    ValueError: if the diagonals are not identically one.
+    """
+    
     # pre-optimization step
-    C = luriegold_fit(R, maxiter=1000, debug=False)
+    C = luriegold_fit(C_initial, maxiter=1000)
 
     # post-optimization step
     k = 0
     while k < n_max_post_fit:
         if np.all(np.diag(C) == 1.0):
             break
-        C = np.array(luriegold_fit(C, maxiter=200, debug=False))
+        C = np.array(luriegold_fit(C, maxiter=200))
         k = k + 1
+        
     # final check
     if not np.allclose(np.diag(C), 1.0):
-        warnings.warn(
+        raise ValueError(
             "Some diagonals are not 1.0. Try to increase n_max_post_fit")
 
     # done
