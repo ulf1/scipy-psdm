@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name="scipy-psdm",
-    version="0.1.0",
+    version="0.2.0",
     description=(
         "transform an ill-conditioned quadratic matrix to "
         "a positive semidefinite matrix"
