@@ -80,3 +80,6 @@ Please [open an issue](https://github.com/ulf1/scipy-psdm/issues/new) for suppor
 
 ## Contributing
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/ulf1/scipy-psdm/compare/).
+
+## Contributers
+- [@KikeM Enrique Millán Valbuena](https://github.com/KikeM)
