@@ -26,7 +26,7 @@ mat = [[ 1.   , -0.948,  0.099, -0.129],
 mat = np.array(mat)
 
 # Convert to a positive semi-definite matrix
-rho = psdm.luriegold(mat)
+rho = psdm.approximate_correlation_matrix(mat)
 print(rho.round(3))
 ```
 
