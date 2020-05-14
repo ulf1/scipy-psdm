@@ -12,12 +12,15 @@ def approximate_correlation_matrix(
     Parameters
     ----------
     C_initial: np.array
+        Target correlation matrix that might be ill-conditionend
 
     n_max_post_fit: int
+        Number of post-processing refits
 
     Returns
     -------
     np.array
+        Adjusted correlation matrix
 
     Raises
     ------
