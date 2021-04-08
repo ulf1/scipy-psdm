@@ -17,5 +17,4 @@ setup(
     packages=["scipy_psdm"],
     install_requires=["setuptools>=40.0.0", "numpy>=1.14.*", "scipy>=1.1.*"],
     python_requires=">=3.6",
-    zip_safe=False,
-)
+    zip_safe=True)
