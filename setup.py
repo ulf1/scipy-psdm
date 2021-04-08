@@ -25,6 +25,10 @@ setup(
     author_email="554c46@gmail.com",
     license="MIT",
     packages=["scipy_psdm"],
-    install_requires=["setuptools>=40.0.0", "numpy>=1.14.*", "scipy>=1.1.*"],
+    install_requires=[
+        "setuptools>=40.0.0",
+        "numpy>=1.19.5,<2",
+        "scipy>=1.5.4,<2"
+    ],
     python_requires=">=3.6",
     zip_safe=True)
