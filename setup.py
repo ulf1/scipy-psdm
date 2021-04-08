@@ -2,9 +2,19 @@ from setuptools import setup
 import pypandoc
 
 
+def get_version(path):
+    with open(path, "r") as fp:
+        lines = fp.read()
+    for line in lines.split("\n"):
+        if line.startswith('__version__'):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    raise RuntimeError("Unable to find version string.")
+
+
 setup(
     name="scipy-psdm",
-    version="0.2.0",
+    version=get_version("scipy_psdm/__init__.py"),
     description=(
         "transform an ill-conditioned quadratic matrix to "
         "a positive semidefinite matrix"
