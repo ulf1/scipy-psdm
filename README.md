@@ -1,4 +1,4 @@
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/ulf1/scipy-psdm/master?urlpath=lab) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PyPI version](https://badge.fury.io/py/scipy-psdm.svg)](https://badge.fury.io/py/scipy-psdm)
 
 
 # scipy-psdm
@@ -45,19 +45,21 @@ print(np.corrcoef(X, rowvar=False).round(3))
 Check the [examples](https://github.com/ulf1/scipy-psdm/tree/master/examples) folder for notebooks.
 
 
-## Commands
-Install a virtual environment
+## Appendix
+
+### Install a virtual environment
 
 ```bash
 python3.6 -m venv .venv
 source .venv/bin/activate
-pip3 install --upgrade pip setuptools wheel twine
 pip3 install -r requirements.txt
+pip3 install -r requirements-dev.txt
+pip3 install -r requirements-demo.txt
 ```
 
 (If your git repo is stored in a folder with whitespaces, then don't use the subfolder `.venv`. Use an absolute path without whitespaces.)
 
-Python commands
+### Python commands
 
 * Start virtual env: `source .venv/bin/activate`
 * Jupyter for the examples: `jupyter lab`
@@ -65,7 +67,7 @@ Python commands
 * Run Unit Tests: `pytest -v`
 * Upload to PyPi with twine: `python setup.py sdist && twine upload -r pypi dist/*`
 
-Clean up 
+### Clean up 
 
 ```bash
 find . -type f -name "*.pyc" | xargs rm
@@ -74,11 +76,11 @@ rm -r .pytest_cache
 rm -r .venv
 ```
 
-## Support
+### Support
 Please [open an issue](https://github.com/ulf1/scipy-psdm/issues/new) for support.
 
 
-## Contributing
+### Contributing
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/ulf1/scipy-psdm/compare/).
 
 ## Contributers

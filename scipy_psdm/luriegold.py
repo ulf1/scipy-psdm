@@ -4,9 +4,9 @@ import numpy as np
 import scipy.optimize
 
 
-def approximate_correlation_matrix(
-    C_initial: np.ndarray, n_max_post_fit: int = 5
-) -> (np.ndarray, np.ndarray, dict):
+def approximate_correlation_matrix(C_initial: np.ndarray,
+                                   n_max_post_fit: int = 5
+                                   ) -> (np.ndarray, np.ndarray, dict):
     """Generate a valid correlation matrix from an initial matrix.
 
     Parameters
@@ -40,31 +40,35 @@ def approximate_correlation_matrix(
 
     # final check
     if not np.allclose(np.diag(C), 1.0):
-        raise ValueError("Some diagonals are not 1.0. Try to increase n_max_post_fit")
+        raise ValueError(
+            "Some diagonals are not 1.0. Try to increase n_max_post_fit")
 
     # done
     return C
 
 
-def luriegold_fit(R: np.ndarray, maxiter: int = 1000) -> (np.ndarray, np.ndarray, dict):
-    """Adjust an ill-conditioned correlation matrix to be semipositive definite.
+def luriegold_fit(R: np.ndarray,
+                  maxiter: int = 1000
+                  ) -> (np.ndarray, np.ndarray, dict):
+    """Adjust an ill-conditioned correlation matrix to be semipositive
+        definite.
 
     Parameters
     ----------
     R: np.ndarray
 
-    maxiter: int, 
+    maxiter: int,
         Maximum number of optimization iterations
 
     Returns
     -------
     C: np.ndarray
-        Closest well-conditioned matrix. 
+        Closest well-conditioned matrix.
 
     Notes
     -----
     Based on the Lurie-Goldberg Algorithm to adjust a correlation
-    matrix to be semipositive definite. 
+    matrix to be semipositive definite.
 
     Philip M. Lurie and Matthew S. Goldberg (1998), An Approximate Method
        for Sampling Correlated Random Variables from Partially-Specified
@@ -87,7 +91,9 @@ def luriegold_fit(R: np.ndarray, maxiter: int = 1000) -> (np.ndarray, np.ndarray
         f = np.sum((R - C) ** 2)
         return f
 
-    def nlcon_diagone(x: np.ndarray, idx: np.ndarray, mat: np.ndarray) -> np.ndarray:
+    def nlcon_diagone(x: np.ndarray,
+                      idx: np.ndarray,
+                      mat: np.ndarray) -> np.ndarray:
         C, _ = xtocorr(x, idx, mat)
         return np.abs(1.0 - np.diag(C))
 

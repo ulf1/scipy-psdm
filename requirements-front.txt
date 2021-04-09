@@ -1,2 +1,0 @@
-jupyterlab==2.1.2
-jupyter==1.0.0
