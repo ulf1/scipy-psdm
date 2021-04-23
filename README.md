@@ -1,4 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/scipy-psdm.svg)](https://badge.fury.io/py/scipy-psdm)
+[![scipy-psdm](https://snyk.io/advisor/python/scipy-psdm/badge.svg)](https://snyk.io/advisor/python/scipy-psdm)
 
 
 # scipy-psdm
