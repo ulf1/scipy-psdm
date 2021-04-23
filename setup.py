@@ -1,5 +1,4 @@
 from setuptools import setup
-import pypandoc
 
 
 def get_version(path):
@@ -19,15 +18,15 @@ setup(
         "transform an ill-conditioned quadratic matrix to "
         "a positive semidefinite matrix"
     ),
-    long_description=pypandoc.convert('README.md', 'rst'),
+    long_description='README.rst',
     url="http://github.com/ulf1/scipy-psdm",
     author="Ulf Hamster",
     author_email="554c46@gmail.com",
-    license="Apache License 2.0",
+    license="MIT",
     packages=["scipy_psdm"],
     install_requires=[
         "numpy>=1.19.5,<2",
         "scipy>=1.5.4,<2"
     ],
     python_requires=">=3.6",
-    zip_safe=False)
+    zip_safe=True)
