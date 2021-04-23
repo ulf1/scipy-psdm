@@ -23,12 +23,11 @@ setup(
     url="http://github.com/ulf1/scipy-psdm",
     author="Ulf Hamster",
     author_email="554c46@gmail.com",
-    license="MIT",
+    license="Apache License 2.0",
     packages=["scipy_psdm"],
     install_requires=[
-        "setuptools>=40.0.0",
         "numpy>=1.19.5,<2",
         "scipy>=1.5.4,<2"
     ],
     python_requires=">=3.6",
-    zip_safe=True)
+    zip_safe=False)
