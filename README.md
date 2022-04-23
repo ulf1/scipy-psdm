@@ -1,5 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/scipy-psdm.svg)](https://badge.fury.io/py/scipy-psdm)
-
+[![PyPi downloads](https://img.shields.io/pypi/dm/scipy-psdm)](https://img.shields.io/pypi/dm/scipy-psdm)
 
 # scipy-psdm
 Transform an ill-conditioned quadratic matrix into a positive semi-definite matrix.
