@@ -50,7 +50,7 @@ Check the [examples](https://github.com/ulf1/scipy-psdm/tree/master/examples) fo
 ### Install a virtual environment
 
 ```bash
-python3.6 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
 pip3 install -r requirements-dev.txt
@@ -65,7 +65,13 @@ pip3 install -r requirements-demo.txt
 * Jupyter for the examples: `jupyter lab`
 * Check syntax: `flake8 --ignore=F401 --exclude=$(grep -v '^#' .gitignore | xargs | sed -e 's/ /,/g')`
 * Run Unit Tests: `pytest -v`
-* Upload to PyPi with twine: `python setup.py sdist && twine upload -r pypi dist/*`
+
+Publish
+```
+pandoc README.md --from markdown --to rst -s -o README.rst
+python setup.py sdist 
+twine upload -r pypi dist/*
+```
 
 ### Clean up 
 
