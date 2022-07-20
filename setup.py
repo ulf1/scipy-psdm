@@ -1,5 +1,5 @@
 from setuptools import setup
-import pypandoc
+import os
 
 
 def read(fname):
